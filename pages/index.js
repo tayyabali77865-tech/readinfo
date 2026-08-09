@@ -132,7 +132,7 @@ export default function HomePage({ posts, totalPages, currentPage }) {
                             src={post.imageUrl}
                             alt={post.title}
                             fill
-                            style={{ objectFit: 'cover' }}
+                            style={{ objectFit: 'contain', backgroundColor: '#f1f5f9' }}
                             priority
                             sizes="(max-width: 768px) 100vw, 55vw"
                           />
