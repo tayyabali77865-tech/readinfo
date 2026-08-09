@@ -21,9 +21,26 @@ export function pageLink(pg) {
 }
 
 export default function HomePage({ posts, totalPages, currentPage }) {
-  const featured = posts[0];
-  const rest = posts.slice(1);
+  const carouselPosts = posts.slice(0, 3);
+  const rest = posts.slice(3); // adjust so rest of grid doesn't duplicate carousel items
+  const [carouselIdx, setCarouselIdx] = useState(0);
 
+  useEffect(() => {
+    if (carouselPosts.length <= 1) return;
+    const timer = setInterval(() => {
+      setCarouselIdx(idx => (idx + 1) % carouselPosts.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [carouselPosts.length]);
+
+  const prevSlide = () => {
+    setCarouselIdx(idx => (idx - 1 + carouselPosts.length) % carouselPosts.length);
+  };
+  const nextSlide = () => {
+    setCarouselIdx(idx => (idx + 1) % carouselPosts.length);
+  };
+
+  const featured = carouselPosts[0]; // fallback metadata
   const tickerPosts = posts.slice(0, 8);
   const [tickerIdx, setTickerIdx] = useState(0);
 
@@ -92,51 +109,81 @@ export default function HomePage({ posts, totalPages, currentPage }) {
             <p>Government schemes, jobs, results, scholarships — sab kuch ek jagah</p>
           </div>
 
-          {/* Featured Post */}
-          {featured && (
-            <Link href={`/news/${featured.slug}`} className="featured-post">
-              <div className="featured-image-wrap">
-                {featured.imageUrl ? (
-                  <Image
-                    src={featured.imageUrl}
-                    alt={featured.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    priority
-                    sizes="(max-width: 768px) 100vw, 55vw"
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      minHeight: 300,
-                      background: 'linear-gradient(135deg, #1a1a2e, #16213e)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: 60,
-                    }}
-                  >
-                    📰
+          {/* Featured Carousel */}
+          {carouselPosts.length > 0 && (
+            <div className="carousel-container">
+              {carouselPosts.length > 1 && (
+                <>
+                  <button className="carousel-arrow prev" onClick={prevSlide}>&lsaquo;</button>
+                  <button className="carousel-arrow next" onClick={nextSlide}>&rsaquo;</button>
+                </>
+              )}
+              
+              <div 
+                className="carousel-slides" 
+                style={{ transform: `translateX(-${carouselIdx * 100}%)` }}
+              >
+                {carouselPosts.map((post) => (
+                  <div key={post.id} className="carousel-slide">
+                    <Link href={`/news/${post.slug}`} className="featured-post-slide">
+                      <div className="featured-image-wrap">
+                        {post.imageUrl ? (
+                          <Image
+                            src={post.imageUrl}
+                            alt={post.title}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            priority
+                            sizes="(max-width: 768px) 100vw, 55vw"
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              minHeight: 300,
+                              background: 'linear-gradient(135deg, #1a1a2e, #16213e)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 60,
+                            }}
+                          >
+                            📰
+                          </div>
+                        )}
+                      </div>
+                      <div className="featured-body">
+                        <span className="featured-badge">
+                          🔥 Featured
+                          {post.categories?.[0] && ` • ${post.categories[0]}`}
+                        </span>
+                        <h2 className="featured-title">{post.title}</h2>
+                        {post.excerpt && (
+                          <p className="featured-excerpt">{post.excerpt}</p>
+                        )}
+                        <div className="featured-meta">
+                          <span>📅 {formatDate(post.date)}</span>
+                        </div>
+                        <span className="featured-cta">Poora Parho →</span>
+                      </div>
+                    </Link>
                   </div>
-                )}
+                ))}
               </div>
-              <div className="featured-body">
-                <span className="featured-badge">
-                  🔥 Featured
-                  {featured.categories?.[0] && ` • ${featured.categories[0]}`}
-                </span>
-                <h2 className="featured-title">{featured.title}</h2>
-                {featured.excerpt && (
-                  <p className="featured-excerpt">{featured.excerpt}</p>
-                )}
-                <div className="featured-meta">
-                  <span>📅 {formatDate(featured.date)}</span>
+
+              {carouselPosts.length > 1 && (
+                <div className="carousel-dots">
+                  {carouselPosts.map((_, i) => (
+                    <button
+                      key={i}
+                      className={`carousel-dot${i === carouselIdx ? ' active' : ''}`}
+                      onClick={() => setCarouselIdx(i)}
+                    />
+                  ))}
                 </div>
-                <span className="featured-cta">Poora Parho →</span>
-              </div>
-            </Link>
+              )}
+            </div>
           )}
 
           {/* News Grid */}
