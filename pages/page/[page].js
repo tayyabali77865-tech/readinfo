@@ -2,7 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { getPaginatedPosts } from '../lib/api';
+import { getPaginatedPosts } from '../../lib/api';
+import { NewsCard, Pagination, pageLink } from '../index';
 
 const SITE_NAME = 'ReadInfo PK';
 const SITE_DESC = 'Pakistan ki latest news, government schemes, jobs, results aur scholarships — sabse pehle yahan.';
@@ -16,11 +17,7 @@ function formatDate(dateStr) {
   });
 }
 
-export function pageLink(pg) {
-  return pg === 1 ? '/' : `/page/${pg}`;
-}
-
-export default function HomePage({ posts, totalPages, currentPage }) {
+export default function PageN({ posts, totalPages, currentPage }) {
   const featured = posts[0];
   const rest = posts.slice(1);
 
@@ -38,40 +35,20 @@ export default function HomePage({ posts, totalPages, currentPage }) {
   return (
     <>
       <Head>
-        <title>{`${SITE_NAME} – Latest Pakistan News & Updates`}</title>
-        <meta name="description" content={SITE_DESC} />
-        <link rel="canonical" href={currentPage === 1 ? SITE_URL : `${SITE_URL}/page/${currentPage}`} />
+        <title>{`Page ${currentPage} – ${SITE_NAME} – Latest Pakistan News`}</title>
+        <meta name="description" content={`${SITE_DESC} — Page ${currentPage}`} />
+        <link rel="canonical" href={`${SITE_URL}/page/${currentPage}`} />
+        {currentPage > 1 && <link rel="prev" href={`${SITE_URL}${pageLink(currentPage - 1)}`} />}
+        <link rel="next" href={`${SITE_URL}/page/${currentPage + 1}`} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={SITE_NAME} />
-        <meta property="og:title" content={`${SITE_NAME} – Latest Pakistan News`} />
+        <meta property="og:title" content={`Page ${currentPage} – ${SITE_NAME}`} />
         <meta property="og:description" content={SITE_DESC} />
-        <meta property="og:url" content={SITE_URL} />
-        {featured?.imageUrl && (
-          <meta property="og:image" content={featured.imageUrl} />
-        )}
+        <meta property="og:url" content={`${SITE_URL}/page/${currentPage}`} />
+        {featured?.imageUrl && <meta property="og:image" content={featured.imageUrl} />}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${SITE_NAME} – Latest Pakistan News`} />
-        <meta name="twitter:description" content={SITE_DESC} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: SITE_NAME,
-              url: SITE_URL,
-              description: SITE_DESC,
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: `${SITE_URL}/?s={search_term_string}`,
-                'query-input': 'required name=search_term_string',
-              },
-            }),
-          }}
-        />
       </Head>
 
-      {/* Breaking News Ticker — rotates every 4s */}
+      {/* Breaking News Ticker */}
       {tickerPosts.length > 0 && (
         <div className="breaking-banner">
           <div className="container">
@@ -89,7 +66,7 @@ export default function HomePage({ posts, totalPages, currentPage }) {
         <div className="container">
           <div className="page-hero">
             <h1>Pakistan Latest News &amp; Updates</h1>
-            <p>Government schemes, jobs, results, scholarships — sab kuch ek jagah</p>
+            <p>Page {currentPage} — Government schemes, jobs, results, scholarships</p>
           </div>
 
           {/* Featured Post */}
@@ -162,79 +139,22 @@ export default function HomePage({ posts, totalPages, currentPage }) {
   );
 }
 
-export function NewsCard({ post }) {
-  return (
-    <Link href={`/news/${post.slug}`} className="news-card">
-      <div className="card-image-wrap">
-        {post.imageUrl ? (
-          <Image
-            src={post.imageUrl}
-            alt={post.title}
-            fill
-            style={{ objectFit: 'cover' }}
-            className="card-image"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        ) : (
-          <div className="card-image-placeholder">📰</div>
-        )}
-        {post.categories?.[0] && (
-          <span className="card-category">{post.categories[0]}</span>
-        )}
-      </div>
-      <div className="card-body">
-        <h3 className="card-title">{post.title}</h3>
-        {post.excerpt && <p className="card-excerpt">{post.excerpt}</p>}
-        <div className="card-footer">
-          <span className="card-date">📅 {formatDate(post.date)}</span>
-          <span className="read-more">Read more →</span>
-        </div>
-      </div>
-    </Link>
-  );
+export async function getStaticPaths() {
+  // Pre-generate pages 2–10, rest generated on-demand (fallback: blocking)
+  const paths = Array.from({ length: 9 }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+  return { paths, fallback: 'blocking' };
 }
 
-export function Pagination({ currentPage, totalPages }) {
-  const pages = [];
-  const maxVisible = 7;
-
-  let start = 1;
-  if (totalPages > maxVisible) {
-    if (currentPage <= 4) {
-      start = 1;
-    } else if (currentPage >= totalPages - 3) {
-      start = totalPages - maxVisible + 1;
-    } else {
-      start = currentPage - 3;
-    }
-  }
-  for (let i = 0; i < Math.min(maxVisible, totalPages); i++) {
-    pages.push(start + i);
+export async function getStaticProps({ params }) {
+  const page = parseInt(params.page, 10);
+  if (isNaN(page) || page < 2) {
+    return { notFound: true };
   }
 
-  return (
-    <div className="pagination">
-      {currentPage > 1 && (
-        <Link href={pageLink(currentPage - 1)} className="page-btn">←</Link>
-      )}
-      {pages.map((pg) => (
-        <Link
-          key={pg}
-          href={pageLink(pg)}
-          className={`page-btn${pg === currentPage ? ' active' : ''}`}
-        >
-          {pg}
-        </Link>
-      ))}
-      {currentPage < totalPages && (
-        <Link href={pageLink(currentPage + 1)} className="page-btn">→</Link>
-      )}
-    </div>
-  );
-}
+  const { posts, totalPages, currentPage } = await getPaginatedPosts(page, 10);
 
-export async function getStaticProps() {
-  const { posts, totalPages, currentPage } = await getPaginatedPosts(1, 10);
   return {
     props: { posts, totalPages, currentPage },
     revalidate: 3600,
