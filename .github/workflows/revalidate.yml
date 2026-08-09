@@ -1,0 +1,26 @@
+name: Hourly Revalidate
+
+on:
+  schedule:
+    # Har 1 ghante mein chalega (UTC time)
+    - cron: '0 * * * *'
+  # Manual trigger bhi kar sakte hain GitHub se
+  workflow_dispatch:
+
+jobs:
+  revalidate:
+    name: Revalidate ISR Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Revalidate API
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET "${{ secrets.NEXT_PUBLIC_SITE_URL }}/api/revalidate" \
+            -H "x-revalidate-secret: ${{ secrets.REVALIDATE_SECRET }}")
+          echo "HTTP Status: $response"
+          if [ "$response" != "200" ]; then
+            echo "Revalidation failed with status $response"
+            exit 1
+          fi
+          echo "Revalidation successful!"
