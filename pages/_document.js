@@ -84,8 +84,13 @@ export default function Document() {
         <link rel="preconnect" href="https://readinfo.org.pk" />
         <link rel="preconnect" href="https://readinfos.com" />
 
-        {/* Google AdSense Verification */}
+        {/* Google AdSense */}
         <meta name="google-adsense-account" content="ca-pub-2555027481119393" />
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2555027481119393" 
+          crossOrigin="anonymous"
+        ></script>
 
         {/* Favicon & App icons */}
         <link rel="icon" href="/favicon.png" type="image/png" />
