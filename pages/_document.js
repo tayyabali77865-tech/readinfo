@@ -93,8 +93,8 @@ export default function Document() {
         ></script>
 
         {/* Favicon & App icons */}
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.png?v=2" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png?v=2" />
 
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
