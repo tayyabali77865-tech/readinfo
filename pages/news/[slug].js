@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { getAllSlugs, getPostBySlug, getLatestPosts } from '../../lib/api';
 
-const SITE_NAME = 'ReadInfo PK';
+const SITE_NAME = 'ReadInfo';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
 
 function formatDate(dateStr) {
@@ -76,29 +76,37 @@ export default function ArticlePage({ post, related }) {
     <>
       <Head>
         {/* Primary SEO */}
-        <title>{`${post.title} – ${SITE_NAME}`}</title>
-        <meta name="description" content={post.excerpt || post.title} />
+        <title>{`${post.title} – ReadInfo | Pakistan News, Jobs & Results`}</title>
+        <meta name="description" content={post.excerpt ? `${post.excerpt.slice(0, 155)}...` : `${post.title} – Read full article on ReadInfo, Pakistan's top news source.`} />
+        <meta name="keywords" content={`${post.title}, readinfo, readinfos, pakistan news, ${post.categories?.join(', ')}, breaking news pakistan, latest updates`} />
         <link rel="canonical" href={canonicalUrl} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+        <meta name="author" content="ReadInfo" />
 
         {/* Open Graph */}
         <meta property="og:type" content="article" />
-        <meta property="og:site_name" content={SITE_NAME} />
-        <meta property="og:title" content={post.title} />
+        <meta property="og:site_name" content="ReadInfo" />
+        <meta property="og:title" content={`${post.title} – ReadInfo`} />
         <meta property="og:description" content={post.excerpt || post.title} />
         <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:locale" content="en_PK" />
         {post.imageUrl && <meta property="og:image" content={post.imageUrl} />}
         {post.imageUrl && <meta property="og:image:width" content="1200" />}
         {post.imageUrl && <meta property="og:image:height" content="628" />}
         <meta property="article:published_time" content={formatDateISO(post.date)} />
         {post.modified && <meta property="article:modified_time" content={formatDateISO(post.modified)} />}
+        <meta property="article:publisher" content={SITE_URL} />
         {post.categories?.map((cat) => (
           <meta key={cat} property="article:section" content={cat} />
+        ))}
+        {post.categories?.map((cat) => (
+          <meta key={`tag-${cat}`} property="article:tag" content={cat} />
         ))}
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:site" content="@readinfo" />
+        <meta name="twitter:title" content={`${post.title} – ReadInfo`} />
         <meta name="twitter:description" content={post.excerpt || post.title} />
         {post.imageUrl && <meta name="twitter:image" content={post.imageUrl} />}
 

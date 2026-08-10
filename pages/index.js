@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { getPaginatedPosts } from '../lib/api';
 
-const SITE_NAME = 'ReadInfo PK';
-const SITE_DESC = 'Pakistan ki latest news, government schemes, jobs, results aur scholarships — sabse pehle yahan.';
+const SITE_NAME = 'ReadInfo';
+const SITE_DESC = 'Pakistan\'s latest news, government schemes, jobs, exam results, and scholarships — all in one place. Stay updated with ReadInfo.';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
 
 function formatDate(dateStr) {
@@ -55,34 +55,60 @@ export default function HomePage({ posts, totalPages, currentPage }) {
   return (
     <>
       <Head>
-        <title>{`${SITE_NAME} – Latest Pakistan News & Updates`}</title>
-        <meta name="description" content={SITE_DESC} />
+        <title>ReadInfo – Latest Pakistan News, Jobs, Results & Government Schemes 2026</title>
+        <meta name="description" content="ReadInfo: Pakistan's #1 source for latest news, government jobs 2026, BISP, Ehsaas program, matric results, inter results, scholarships and breaking news updates." />
+        <meta name="keywords" content="readinfo, readinfos, pakistan news, pakistan news today, breaking news pakistan, latest news, government jobs 2026, sarkari naukri, BISP, ehsaas, scholarships pakistan, matric result 2026, inter result 2026, FBISE result, celebrity news, crime news, trending pakistan, insurance pakistan" />
         <link rel="canonical" href={currentPage === 1 ? SITE_URL : `${SITE_URL}/page/${currentPage}`} />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
+        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={SITE_NAME} />
-        <meta property="og:title" content={`${SITE_NAME} – Latest Pakistan News`} />
-        <meta property="og:description" content={SITE_DESC} />
+        <meta property="og:site_name" content="ReadInfo" />
+        <meta property="og:title" content="ReadInfo – Latest Pakistan News, Jobs, Results & Government Schemes" />
+        <meta property="og:description" content="Pakistan's #1 source for breaking news, government jobs, BISP, Ehsaas, scholarships, and exam results. Updated daily." />
         <meta property="og:url" content={SITE_URL} />
-        {featured?.imageUrl && (
-          <meta property="og:image" content={featured.imageUrl} />
-        )}
+        <meta property="og:locale" content="en_PK" />
+        {featured?.imageUrl && <meta property="og:image" content={featured.imageUrl} />}
+        {featured?.imageUrl && <meta property="og:image:width" content="1200" />}
+        {featured?.imageUrl && <meta property="og:image:height" content="630" />}
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${SITE_NAME} – Latest Pakistan News`} />
-        <meta name="twitter:description" content={SITE_DESC} />
+        <meta name="twitter:site" content="@readinfo" />
+        <meta name="twitter:title" content="ReadInfo – Latest Pakistan News, Jobs & Results" />
+        <meta name="twitter:description" content="Pakistan's #1 source for breaking news, government jobs, scholarships, and exam results." />
+        {featured?.imageUrl && <meta name="twitter:image" content={featured.imageUrl} />}
+
+        {/* JSON-LD: WebSite with SearchAction */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: SITE_NAME,
+              name: 'ReadInfo',
+              alternateName: ['readinfo', 'ReadInfos', 'readinfos'],
               url: SITE_URL,
-              description: SITE_DESC,
+              description: 'Pakistan\'s latest news, government schemes, jobs, exam results, and scholarships.',
+              inLanguage: 'en-PK',
               potentialAction: {
                 '@type': 'SearchAction',
-                target: `${SITE_URL}/?s={search_term_string}`,
+                target: `${SITE_URL}/news?category={search_term_string}`,
                 'query-input': 'required name=search_term_string',
               },
+            }),
+          }}
+        />
+        {/* JSON-LD: BreadcrumbList */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+              ],
             }),
           }}
         />

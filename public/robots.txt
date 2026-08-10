@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://readinfo-pk.vercel.app/sitemap.xml
+Sitemap: https://readinfo-pk.vercel.app/sitemap-news.xml
+Host: https://readinfo-pk.vercel.app

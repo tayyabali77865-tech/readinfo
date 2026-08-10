@@ -40,7 +40,7 @@ function Header() {
       <div className="container">
         <div className="header-inner">
           <Link href="/" className="logo">
-            ReadInfo PK
+            ReadInfo
           </Link>
           <nav>
             <ul className="nav-links">
@@ -50,7 +50,6 @@ function Header() {
               <li><Link href="/news?category=trending">Trending News</Link></li>
               <li><Link href="/news?category=insurance">Insurance</Link></li>
               <li><Link href="/news?category=usa">USA</Link></li>
-              <li><Link href="/buy-adspace" style={{ color: 'var(--accent)', fontWeight: 'bold' }}>Buy Adspace</Link></li>
             </ul>
           </nav>
         </div>
@@ -66,55 +65,16 @@ function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <div className="logo" style={{ fontSize: '18px' }}>
-              ReadInfo PK
+              ReadInfo
             </div>
             <p>
-              Pakistan ki latest news, government schemes, jobs, results aur
-              scholarships ki information — ek jagah pe.
+              Get the latest news updates, career opportunities, government schemes, scholarships, and exam results in Pakistan.
             </p>
           </div>
-          <div>
-            <h3 className="footer-heading">Pages</h3>
-            <ul className="footer-links">
-              <li><Link href="/">Home</Link></li>
-              <li>
-                <Link href="https://readinfo.org.pk/privacy-policy/" target="_blank" rel="noopener">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="https://readinfo.org.pk/disclaimer/" target="_blank" rel="noopener">
-                  Disclaimer
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="footer-heading">Source</h3>
-            <ul className="footer-links">
-              <li>
-                <Link href="https://readinfo.org.pk/" target="_blank" rel="noopener noreferrer">
-                  ReadInfo.org.pk
-                </Link>
-              </li>
-              <li>
-                <Link href="/sitemap.xml">Sitemap</Link>
-              </li>
-            </ul>
-          </div>
+
         </div>
         <div className="footer-bottom">
-          <p>
-            © {new Date().getFullYear()} ReadInfo PK · Content sourced from{' '}
-            <Link
-              href="https://readinfo.org.pk/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: 'var(--accent)' }}
-            >
-              readinfo.org.pk
-            </Link>
-          </p>
+          <p>© {new Date().getFullYear()} ReadInfo | All Rights Reserved</p>
         </div>
       </div>
     </footer>

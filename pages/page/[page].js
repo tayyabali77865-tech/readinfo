@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { getPaginatedPosts } from '../../lib/api';
 import { NewsCard, Pagination, pageLink } from '../index';
 
-const SITE_NAME = 'ReadInfo PK';
-const SITE_DESC = 'Pakistan ki latest news, government schemes, jobs, results aur scholarships — sabse pehle yahan.';
+const SITE_NAME = 'ReadInfo';
+const SITE_DESC = 'Latest news updates, career opportunities, government schemes, scholarships, and exam results in Pakistan.';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
 
 function formatDate(dateStr) {
@@ -52,13 +52,13 @@ export default function PageN({ posts, totalPages, currentPage }) {
   return (
     <>
       <Head>
-        <title>{`Page ${currentPage} – ${SITE_NAME} – Latest Pakistan News`}</title>
-        <meta name="description" content={`${SITE_DESC} — Page ${currentPage}`} />
+        <title>{`Page ${currentPage} – ReadInfo | Latest Pakistan News & Careers`}</title>
+        <meta name="description" content={`Read latest updates on Page ${currentPage} of ReadInfo, Pakistan's leading news portal.`} />
         <link rel="canonical" href={`${SITE_URL}/page/${currentPage}`} />
         {currentPage > 1 && <link rel="prev" href={`${SITE_URL}${pageLink(currentPage - 1)}`} />}
         <link rel="next" href={`${SITE_URL}/page/${currentPage + 1}`} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`Page ${currentPage} – ${SITE_NAME}`} />
+        <meta property="og:title" content={`Page ${currentPage} – ReadInfo`} />
         <meta property="og:description" content={SITE_DESC} />
         <meta property="og:url" content={`${SITE_URL}/page/${currentPage}`} />
         {featured?.imageUrl && <meta property="og:image" content={featured.imageUrl} />}
