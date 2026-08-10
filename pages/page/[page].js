@@ -19,7 +19,7 @@ function formatDate(dateStr) {
 
 export default function PageN({ posts, totalPages, currentPage }) {
   const carouselPosts = posts.slice(0, 3);
-  const rest = posts.slice(3);
+  const rest = posts;
   const [carouselIdx, setCarouselIdx] = useState(0);
 
   useEffect(() => {
@@ -131,10 +131,6 @@ export default function PageN({ posts, totalPages, currentPage }) {
                         )}
                       </div>
                       <div className="featured-body">
-                        <span className="featured-badge">
-                          🔥 Featured
-                          {post.categories?.[0] && ` • ${post.categories[0]}`}
-                        </span>
                         <h2 className="featured-title">{post.title}</h2>
                         {post.excerpt && (
                           <p className="featured-excerpt">{post.excerpt}</p>

@@ -512,8 +512,8 @@ img {
     display: none; /* Hide excerpt on mobile for space */
   }
   .featured-cta {
-    font-size: 12px;
-    padding: 8px 14px;
+    font-size: 11px;
+    padding: 6px 12px;
   }
 }
 

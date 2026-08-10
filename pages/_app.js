@@ -40,7 +40,6 @@ function Header() {
       <div className="container">
         <div className="header-inner">
           <Link href="/" className="logo">
-            <span className="logo-icon">📰</span>
             ReadInfo PK
           </Link>
           <nav>
@@ -67,7 +66,6 @@ function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <div className="logo" style={{ fontSize: '18px' }}>
-              <span className="logo-icon">📰</span>
               ReadInfo PK
             </div>
             <p>

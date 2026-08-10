@@ -144,14 +144,6 @@ export default function ArticlePage({ post, related }) {
             {/* Main Article */}
             <article>
               <header className="article-header">
-                {/* Category Badges */}
-                {post.categories?.length > 0 && (
-                  <div className="article-cats">
-                    {post.categories.map((cat) => (
-                      <span key={cat} className="cat-badge">{cat}</span>
-                    ))}
-                  </div>
-                )}
 
                 <h1 className="article-title">{post.title}</h1>
 

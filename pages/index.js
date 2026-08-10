@@ -22,7 +22,7 @@ export function pageLink(pg) {
 
 export default function HomePage({ posts, totalPages, currentPage }) {
   const carouselPosts = posts.slice(0, 3);
-  const rest = posts.slice(3); // adjust so rest of grid doesn't duplicate carousel items
+  const rest = posts; // include top 3 articles in the main grid section too
   const [carouselIdx, setCarouselIdx] = useState(0);
 
   useEffect(() => {
@@ -154,10 +154,6 @@ export default function HomePage({ posts, totalPages, currentPage }) {
                         )}
                       </div>
                       <div className="featured-body">
-                        <span className="featured-badge">
-                          🔥 Featured
-                          {post.categories?.[0] && ` • ${post.categories[0]}`}
-                        </span>
                         <h2 className="featured-title">{post.title}</h2>
                         {post.excerpt && (
                           <p className="featured-excerpt">{post.excerpt}</p>
