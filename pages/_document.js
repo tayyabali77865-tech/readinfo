@@ -84,9 +84,12 @@ export default function Document() {
         <link rel="preconnect" href="https://readinfo.org.pk" />
         <link rel="preconnect" href="https://readinfos.com" />
 
+        {/* Google AdSense Verification */}
+        <meta name="google-adsense-account" content="ca-pub-2555027481119393" />
+
         {/* Favicon & App icons */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
 
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />

@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
       </Head>
       <Header />
       <Component {...pageProps} />
@@ -87,33 +87,6 @@ function Footer() {
                 <li><Link href="/news?category=trending" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Trending News</Link></li>
                 <li><Link href="/news?category=insurance" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Insurance</Link></li>
                 <li><Link href="/news?category=usa" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>USA News</Link></li>
-              </ul>
-            </nav>
-          </div>
-
-          {/* Legal & Info Links */}
-          <div style={{ minWidth: '160px' }}>
-            <p style={{ fontWeight: '600', marginBottom: '12px', color: 'var(--text-primary)' }}>
-              Information
-            </p>
-            <nav aria-label="Footer information navigation">
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '2' }}>
-                <li><Link href="/about" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>About Us</Link></li>
-                <li><Link href="/privacy-policy" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Privacy Policy</Link></li>
-                <li><Link href="/buy-adspace" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Advertise With Us</Link></li>
-                <li>
-                  <a
-                    href="mailto:admin@readinfo.org.pk"
-                    style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}
-                  >
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <Link href="/sitemap.xml" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
-                    Sitemap
-                  </Link>
-                </li>
               </ul>
             </nav>
           </div>
