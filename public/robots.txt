@@ -1,7 +1,12 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /_next/
 
-Sitemap: https://readinfo-pk.vercel.app/sitemap.xml
-Sitemap: https://readinfo-pk.vercel.app/sitemap-news.xml
-Host: https://readinfo-pk.vercel.app
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Crawl-delay: 5
+
+Sitemap: https://readinfo-mu.vercel.app/sitemap.xml
+Sitemap: https://readinfo-mu.vercel.app/sitemap-news.xml

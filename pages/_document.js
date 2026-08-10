@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-mu.vercel.app';
 
 export default function Document() {
   return (
@@ -14,8 +14,8 @@ export default function Document() {
         <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <meta name="bingbot" content="index, follow" />
 
-        {/* Site-wide keywords – all lowercase and uppercase variants for crawlers */}
-        <meta name="keywords" content="readinfo, ReadInfo, readinfos, Readinfos, readinfo.org.pk, readinfos.com, Pakistan news, Pakistan latest news, Pakistan jobs 2026, government jobs Pakistan, BISP, Ehsaas program, scholarships Pakistan, results 2026, matric result, inter result, FBISE result, government schemes Pakistan, Punjab schemes, KPK schemes, Sindh news, jobs in Pakistan, sarkari naukri, online jobs Pakistan, breaking news Pakistan, Pakistan today, daily news Pakistan, crime news Pakistan, celebrity news Pakistan, trending Pakistan, insurance Pakistan, USA news Urdu, Urdu news, news in English, Pakistan news English" />
+        {/* Site-wide keywords */}
+        <meta name="keywords" content="readinfo, ReadInfo, pakistan news, Pakistan latest news, Pakistan jobs 2026, government jobs Pakistan, BISP, Ehsaas program, scholarships Pakistan, results 2026, matric result, inter result, FBISE result, government schemes Pakistan, Punjab schemes, KPK schemes, jobs in Pakistan, breaking news Pakistan, Pakistan today, daily news Pakistan, crime news Pakistan, celebrity news Pakistan, trending Pakistan, insurance Pakistan, USA news Urdu, Urdu news" />
 
         {/* Author & publisher */}
         <meta name="author" content="ReadInfo" />
@@ -50,18 +50,27 @@ export default function Document() {
                 width: 512,
                 height: 512,
               },
-              description: 'Pakistan\'s latest news, government schemes, jobs, results, and scholarships — all in one place.',
+              description: "Pakistan's latest news, government schemes, jobs, results, and scholarships — all in one place.",
               sameAs: [
                 'https://readinfo.org.pk',
                 'https://readinfos.com',
               ],
               areaServed: 'PK',
               knowsAbout: ['Pakistan news', 'Government jobs Pakistan', 'BISP', 'Scholarships', 'Education results'],
+              contactPoint: {
+                '@type': 'ContactPoint',
+                email: 'admin@readinfo.org.pk',
+                contactType: 'customer support',
+                areaServed: 'PK',
+                availableLanguage: ['English', 'Urdu'],
+              },
+              foundingDate: '2024',
+              publishingPrinciples: `${SITE_URL}/privacy-policy`,
             }),
           }}
         />
 
-        {/* Preconnect for fonts */}
+        {/* Preconnect for Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -69,7 +78,9 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        {/* Preconnect to content sources */}
+        {/* DNS Prefetch for content sources */}
+        <link rel="dns-prefetch" href="https://readinfo.org.pk" />
+        <link rel="dns-prefetch" href="https://readinfos.com" />
         <link rel="preconnect" href="https://readinfo.org.pk" />
         <link rel="preconnect" href="https://readinfos.com" />
 
@@ -77,9 +88,20 @@ export default function Document() {
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
 
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+
+        {/* Apple mobile meta */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="ReadInfo" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
+
         {/* Theme color */}
         <meta name="theme-color" content="#ef4444" />
         <meta name="msapplication-TileColor" content="#ef4444" />
+        <meta name="msapplication-navbutton-color" content="#ef4444" />
       </Head>
       <body>
         <Main />

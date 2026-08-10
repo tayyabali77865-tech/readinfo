@@ -6,7 +6,7 @@ import { getPaginatedPosts } from '../lib/api';
 
 const SITE_NAME = 'ReadInfo';
 const SITE_DESC = 'Pakistan\'s latest news, government schemes, jobs, exam results, and scholarships — all in one place. Stay updated with ReadInfo.';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-mu.vercel.app';
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-PK', {

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { getAllSlugs, getPostBySlug, getLatestPosts } from '../../lib/api';
 
 const SITE_NAME = 'ReadInfo';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-mu.vercel.app';
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-PK', {

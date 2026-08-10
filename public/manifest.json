@@ -1,0 +1,24 @@
+{
+  "name": "ReadInfo – Pakistan News, Jobs & Results",
+  "short_name": "ReadInfo",
+  "description": "Pakistan's latest news, government schemes, jobs, results, and scholarships — all in one place.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ef4444",
+  "orientation": "portrait-primary",
+  "lang": "en-PK",
+  "scope": "/",
+  "categories": ["news", "education", "government"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

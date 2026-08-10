@@ -6,8 +6,7 @@ import { getPaginatedPosts } from '../../lib/api';
 import { NewsCard, Pagination, pageLink } from '../index';
 
 const SITE_NAME = 'ReadInfo';
-const SITE_DESC = 'Latest news updates, career opportunities, government schemes, scholarships, and exam results in Pakistan.';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-pk.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://readinfo-mu.vercel.app';
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-PK', {
@@ -49,20 +48,91 @@ export default function PageN({ posts, totalPages, currentPage }) {
     return () => clearInterval(timer);
   }, [tickerPosts.length]);
 
+  const pageTitle = `Page ${currentPage} – ReadInfo | Latest Pakistan News, Jobs & Results`;
+  const pageDesc = `Browse page ${currentPage} of ReadInfo — Pakistan's leading news portal. Latest breaking news, government schemes, jobs, scholarships, and exam results.`;
+  const canonicalUrl = `${SITE_URL}/page/${currentPage}`;
+
+  const schemaCollectionPage = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: pageTitle,
+    description: pageDesc,
+    url: canonicalUrl,
+    inLanguage: 'en-PK',
+    isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
+    },
+  };
+
   return (
     <>
       <Head>
-        <title>{`Page ${currentPage} – ReadInfo | Latest Pakistan News & Careers`}</title>
-        <meta name="description" content={`Read latest updates on Page ${currentPage} of ReadInfo, Pakistan's leading news portal.`} />
-        <link rel="canonical" href={`${SITE_URL}/page/${currentPage}`} />
-        {currentPage > 1 && <link rel="prev" href={`${SITE_URL}${pageLink(currentPage - 1)}`} />}
+        {/* Primary SEO */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <meta
+          name="keywords"
+          content={`pakistan news page ${currentPage}, readinfo page ${currentPage}, latest pakistan news, breaking news pakistan, government jobs pakistan`}
+        />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+        <meta name="author" content="ReadInfo" />
+
+        {/* Pagination rel links */}
+        {currentPage > 2 && (
+          <link rel="prev" href={`${SITE_URL}${pageLink(currentPage - 1)}`} />
+        )}
+        {currentPage === 2 && <link rel="prev" href={SITE_URL} />}
         <link rel="next" href={`${SITE_URL}/page/${currentPage + 1}`} />
+
+        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`Page ${currentPage} – ReadInfo`} />
-        <meta property="og:description" content={SITE_DESC} />
-        <meta property="og:url" content={`${SITE_URL}/page/${currentPage}`} />
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:locale" content="en_PK" />
         {featured?.imageUrl && <meta property="og:image" content={featured.imageUrl} />}
+        {featured?.imageUrl && <meta property="og:image:width" content="1200" />}
+        {featured?.imageUrl && <meta property="og:image:height" content="628" />}
+        {featured?.imageUrl && (
+          <meta property="og:image:alt" content={`ReadInfo – Page ${currentPage}`} />
+        )}
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@readinfo" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDesc} />
+        {featured?.imageUrl && <meta name="twitter:image" content={featured.imageUrl} />}
+
+        {/* JSON-LD: CollectionPage */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaCollectionPage) }}
+        />
+        {/* JSON-LD: BreadcrumbList */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: `Page ${currentPage}`,
+                  item: canonicalUrl,
+                },
+              ],
+            }),
+          }}
+        />
       </Head>
 
       {/* Breaking News Ticker */}
