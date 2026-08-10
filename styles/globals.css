@@ -181,8 +181,8 @@ img {
 }
 
 @keyframes tickerFade {
-  0% { opacity: 0; transform: translateY(5px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @media (max-width: 640px) {
@@ -305,7 +305,6 @@ img {
 }
 
 .news-card:hover {
-  transform: translateY(-4px);
   border-color: var(--border-hover);
   box-shadow: var(--shadow-hover);
   background: var(--bg-card-hover);
@@ -341,34 +340,6 @@ img {
   color: var(--text-muted);
 }
 
-.card-category {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: var(--accent-gradient);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  z-index: 5;
-  max-width: calc(100% - 16px);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-@media (max-width: 640px) {
-  .card-category {
-    font-size: 8px;
-    padding: 2px 5px;
-    top: 4px;
-    left: 4px;
-    letter-spacing: 0;
-  }
-}
 
 .card-body {
   padding: 20px;
@@ -600,9 +571,9 @@ img {
 }
 
 .featured-cta:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
 }
+
 
 /* ==============================
    Featured Post Carousel Sizing
@@ -632,12 +603,20 @@ img {
   overflow: hidden;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  transition: var(--transition);
+  transition: opacity 0.2s ease-in-out; /* Avoid layout shifts and translate transitions */
 }
 
 @media (max-width: 768px) {
-  .featured-post-slide { grid-template-columns: 1fr; }
+  .featured-post-slide { 
+    grid-template-columns: 1fr; 
+  }
 }
+@media (max-width: 640px) {
+  .featured-post-slide {
+    padding: 0;
+  }
+}
+
 
 .carousel-dots {
   position: absolute;

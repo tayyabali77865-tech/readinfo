@@ -225,9 +225,6 @@ export function NewsCard({ post }) {
         ) : (
           <div className="card-image-placeholder">📰</div>
         )}
-        {post.categories?.[0] && (
-          <span className="card-category">{post.categories[0]}</span>
-        )}
       </div>
       <div className="card-body">
         <h3 className="card-title">{post.title}</h3>
