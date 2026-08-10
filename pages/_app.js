@@ -35,6 +35,10 @@ function MyApp({ Component, pageProps }) {
 }
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <header className="header" role="banner">
       <div className="container">
@@ -42,7 +46,9 @@ function Header() {
           <Link href="/" className="logo" aria-label="ReadInfo – Home">
             ReadInfo
           </Link>
-          <nav aria-label="Main navigation">
+
+          {/* Desktop Nav */}
+          <nav aria-label="Main navigation" className="desktop-nav">
             <ul className="nav-links">
               <li><Link href="/">Home</Link></li>
               <li><Link href="/news?category=celebrity">Celebrity News</Link></li>
@@ -52,6 +58,39 @@ function Header() {
               <li><Link href="/news?category=usa">USA</Link></li>
             </ul>
           </nav>
+
+          {/* Hamburger Menu Button */}
+          <button 
+            className="menu-toggle" 
+            onClick={() => setIsOpen(!isOpen)} 
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
+
+          {/* Sidebar Mobile Navigation */}
+          <div className={`mobile-sidebar ${isOpen ? 'active' : ''}`}>
+            <div className="sidebar-header">
+              <span className="logo">ReadInfo</span>
+              <button className="close-btn" onClick={closeMenu} aria-label="Close menu">&times;</button>
+            </div>
+            <nav className="mobile-nav" aria-label="Mobile navigation">
+              <ul className="mobile-nav-links">
+                <li><Link href="/" onClick={closeMenu}>Home</Link></li>
+                <li><Link href="/news?category=celebrity" onClick={closeMenu}>Celebrity News</Link></li>
+                <li><Link href="/news?category=crime" onClick={closeMenu}>Crime News</Link></li>
+                <li><Link href="/news?category=trending" onClick={closeMenu}>Trending News</Link></li>
+                <li><Link href="/news?category=insurance" onClick={closeMenu}>Insurance</Link></li>
+                <li><Link href="/news?category=usa" onClick={closeMenu}>USA</Link></li>
+              </ul>
+            </nav>
+          </div>
+
+          {/* Overlay background */}
+          {isOpen && <div className="sidebar-overlay" onClick={closeMenu} />}
         </div>
       </div>
     </header>
