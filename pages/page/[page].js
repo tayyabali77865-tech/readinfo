@@ -138,7 +138,7 @@ export default function PageN({ posts, totalPages, currentPage }) {
                         <div className="featured-meta">
                           <span>📅 {formatDate(post.date)}</span>
                         </div>
-                        <span className="featured-cta">Poora Parho →</span>
+                        <span className="featured-cta">View More →</span>
                       </div>
                     </Link>
                   </div>

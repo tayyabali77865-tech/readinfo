@@ -506,14 +506,14 @@ img {
     min-height: 180px; /* Reduce image height in carousel on mobile */
   }
   .featured-title {
-    font-size: 15px;
+    font-size: 13px;
   }
   .featured-excerpt {
     display: none; /* Hide excerpt on mobile for space */
   }
   .featured-cta {
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 10px;
+    padding: 5px 10px;
   }
 }
 
