@@ -114,8 +114,8 @@ function Footer() {
             </p>
           </div>
 
-          {/* Navigation Links */}
-          <div style={{ minWidth: '160px' }}>
+          {/* Navigation Links — right corner */}
+          <div className="footer-categories">
             <p style={{ fontWeight: '600', marginBottom: '12px', color: 'var(--text-primary)' }}>
               Categories
             </p>
