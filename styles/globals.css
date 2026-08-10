@@ -165,20 +165,29 @@ img {
 .mobile-sidebar {
   position: fixed;
   top: 0;
-  right: -300px;
+  right: 0;
+  transform: translateX(100%);
   width: 280px;
   height: 100vh;
   background: var(--bg-secondary);
   box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
   z-index: 200;
-  transition: var(--transition);
+  transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   padding: 24px;
+  visibility: hidden;
 }
 
 .mobile-sidebar.active {
-  right: 0;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+@media (min-width: 481px) {
+  .mobile-sidebar, .sidebar-overlay {
+    display: none !important;
+  }
 }
 
 .sidebar-header {
