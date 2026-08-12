@@ -34,6 +34,29 @@ export default function Document() {
         <meta property="og:locale" content="en_PK" />
         <meta property="og:site_name" content="ReadInfo" />
 
+        {/* JSON-LD: WebSite Schema — Google site name ke liye */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'ReadInfo',
+              alternateName: 'ReadInfo Pakistan',
+              url: SITE_URL,
+              description: "Pakistan's latest news, government schemes, jobs, results, and scholarships.",
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${SITE_URL}/news?q={search_term_string}`,
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
+
         {/* JSON-LD: Organization Schema */}
         <script
           type="application/ld+json"
